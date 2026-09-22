@@ -2,6 +2,9 @@ body {
   margin: 0;
   min-width: 320px;
   min-height: 100vh;
+  color: #f4f1ea;
+  background: #252525;
+  font-family: "Trebuchet MS", sans-serif;
 }
 
 .game {
@@ -14,6 +17,12 @@ body {
 }
 
 main {
+  display: grid;
+  grid-template-columns: repeat(12, minmax(0, 1fr));
+  gap: 2rem;
+  width: min(1180px, calc(100% - 3rem));
+  margin: 0 auto;
+  padding: 3rem 0 6rem;
   position: relative;
   z-index: 1;
   min-height: 100vh;
@@ -22,4 +31,107 @@ main {
 
 main > * {
   pointer-events: auto;
+}
+
+.hero,
+.about-me,
+.projects,
+.contact-me {
+  padding: clamp(1.5rem, 4vw, 3rem);
+  border: 1px solid rgb(244 241 234 / 25%);
+  background: rgb(37 37 37 / 78%);
+  backdrop-filter: blur(8px);
+}
+
+.hero {
+  display: grid;
+  grid-column: 1 / -1;
+  align-content: end;
+  min-height: 55vh;
+}
+
+.hero h1 {
+  max-width: 11ch;
+  margin: 0;
+  font-size: clamp(3rem, 8vw, 7rem);
+  line-height: 0.9;
+}
+
+.hero p {
+  max-width: 38rem;
+  margin: 1.5rem 0 0;
+  color: #d7c5a5;
+  font-size: 1.1rem;
+}
+
+.about-me {
+  grid-column: span 5;
+}
+
+.projects {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 1rem;
+  grid-column: span 7;
+}
+
+.projects > h1 {
+  grid-column: 1 / -1;
+}
+
+.project {
+  padding: 1.25rem;
+  border: 1px solid rgb(244 241 234 / 18%);
+  background: rgb(244 241 234 / 7%);
+}
+
+.project h2 {
+  margin-top: 0;
+}
+
+.project a,
+.contact-me a {
+  color: #e5b567;
+}
+
+.language-list {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 1rem;
+  margin-top: 1.5rem;
+}
+
+.language-list img {
+  width: 100%;
+  max-width: 4rem;
+  aspect-ratio: 1;
+  object-fit: contain;
+}
+
+.contact-me {
+  grid-column: 1 / -1;
+}
+
+@media (max-width: 760px) {
+  main {
+    width: min(100% - 2rem, 34rem);
+    grid-template-columns: 1fr;
+    gap: 1rem;
+    padding-top: 1rem;
+  }
+
+  .hero,
+  .about-me,
+  .projects,
+  .contact-me {
+    grid-column: 1;
+  }
+
+  .projects {
+    grid-template-columns: 1fr;
+  }
+
+  .projects > h1 {
+    grid-column: 1;
+  }
 }

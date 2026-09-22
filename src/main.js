@@ -2,13 +2,13 @@ import * as THREE from "three";
 import { Renderer } from "./components/Renderer";
 import { Camera } from "./components/Camera";
 import { player } from "./components/Player";
-import { Orbit } from "./components/Orbit";
 import { StarField } from './components/StarField.js';
-import { updateCamera } from "./systems/updateCamera";
 import "./style.css";
+
 const scene = new THREE.Scene();
 scene.background = new THREE.Color("rgb(37, 37, 37)");
-scene.add(player) ;
+scene.add(player);
+player.position.z = -10;
 
 const ambientLight = new THREE.AmbientLight(0xffffff, 0.5);
 scene.add(ambientLight);
@@ -26,33 +26,33 @@ scene.add(stars.points);
 
 const camera = Camera();
 scene.add(camera);
+const originalCameraPosition = camera.position.clone();
+const originalCameraRotation = camera.rotation.clone();
 
 const renderer = Renderer();
 renderer.render(scene, camera);
 
-const orbit = Orbit(camera, renderer.domElement);
-
 const clock = new THREE.Timer();
+
+
+document.body.onscroll =  () => {
+    const scrollAmount = window.scrollY;
+    camera.position.x = originalCameraPosition.x + scrollAmount * 0.0002;
+    camera.position.z = originalCameraPosition.z + scrollAmount * 0.01;
+    camera.rotation.y = originalCameraRotation.y + scrollAmount * 0.0002;
+};
+
+window.addEventListener('resize', () => {
+    camera.aspect = window.innerWidth / window.innerHeight;
+    camera.updateProjectionMatrix();
+    renderer.setSize(window.innerWidth, window.innerHeight);
+}, false);
 
 function animate() {
     requestAnimationFrame(animate);
     const delta = clock.getDelta();
     stars.update(delta);
-    updateCamera(orbit);
     renderer.render(scene, camera);
 }
 
 animate();
-
-window.addEventListener('resize', onWindowResize, false);
-
-function onWindowResize() {
-    // 1. Update camera aspect ratio
-    camera.aspect = window.innerWidth / window.innerHeight;
-    
-    // 2. Recalculate the projection matrix
-    camera.updateProjectionMatrix();
-    
-    // 3. Update the renderer size
-    renderer.setSize(window.innerWidth, window.innerHeight);
-}

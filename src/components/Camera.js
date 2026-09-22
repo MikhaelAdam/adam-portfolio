@@ -14,7 +14,7 @@ export function Camera() {
         900 // far
     );
     camera.up.set(0, 0, 1);
-    camera.position.set(300, -300, 300);
+    camera.position.set(0,-1,300);
     camera.lookAt(0, 0, 0);
     return camera;
 }
