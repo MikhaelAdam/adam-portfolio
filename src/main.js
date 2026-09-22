@@ -43,3 +43,16 @@ function animate() {
 }
 
 animate();
+
+window.addEventListener('resize', onWindowResize, false);
+
+function onWindowResize() {
+    // 1. Update camera aspect ratio
+    camera.aspect = window.innerWidth / window.innerHeight;
+    
+    // 2. Recalculate the projection matrix
+    camera.updateProjectionMatrix();
+    
+    // 3. Update the renderer size
+    renderer.setSize(window.innerWidth, window.innerHeight);
+}
