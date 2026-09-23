@@ -1,17 +1,21 @@
 {
   "name": "adam-portfolio",
+  "homepage": "https://MikhaelAdam.github.io/adam-portfolio/",
   "version": "0.0.0",
   "private": true,
   "type": "module",
   "scripts": {
     "dev": "vite",
     "build": "vite build",
-    "preview": "vite preview"
+    "preview": "vite preview",
+    "predeploy": "npm run build",
+    "deploy": "gh-pages -d dist" 
   },
   "devDependencies": {
     "vite": "^8.3.0"
   },
   "dependencies": {
+    "gh-pages": "^6.3.0",
     "three": "^0.186.0"
   }
 }
