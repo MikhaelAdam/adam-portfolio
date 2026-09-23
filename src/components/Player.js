@@ -9,7 +9,7 @@ function Player() {
     myTexture.magFilter = THREE.NearestFilter; 
     myTexture.minFilter = THREE.NearestFilter;
     const body = new THREE.Mesh(
-    new THREE.BoxGeometry(50,50,50),
+    new THREE.BoxGeometry(200,200,200),
     new THREE.MeshPhongMaterial({
             map: myTexture,
             transparent: true

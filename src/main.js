@@ -8,7 +8,8 @@ import "./style.css";
 const scene = new THREE.Scene();
 scene.background = new THREE.Color("rgb(37, 37, 37)");
 scene.add(player);
-player.position.z = -10;
+player.position.y += 30;
+player.position.x += 100;
 
 const ambientLight = new THREE.AmbientLight(0xffffff, 0.5);
 scene.add(ambientLight);
@@ -26,8 +27,14 @@ scene.add(stars.points);
 
 const camera = Camera();
 scene.add(camera);
+
 const originalCameraPosition = camera.position.clone();
 const originalCameraRotation = camera.rotation.clone();
+
+const playerStartPosition = player.position.clone();
+
+const originalZoom = camera.zoom;
+const heroVisibilityThreshold = 100;
 
 const renderer = Renderer();
 renderer.render(scene, camera);
@@ -35,12 +42,18 @@ renderer.render(scene, camera);
 const clock = new THREE.Timer();
 
 
-document.body.onscroll =  () => {
+function handleScroll() {
     const scrollAmount = window.scrollY;
-    camera.position.x = originalCameraPosition.x + scrollAmount * 0.0002;
-    camera.position.z = originalCameraPosition.z + scrollAmount * 0.01;
-    camera.rotation.y = originalCameraRotation.y + scrollAmount * 0.0002;
-};
+    document.querySelector('.hero').classList.toggle('hero-hidden', scrollAmount < heroVisibilityThreshold);
+    // camera.position.x = originalCameraPosition.x + scrollAmount * 0.0002;
+    // camera.position.z = originalCameraPosition.z + scrollAmount * 0.01;
+    // camera.rotation.y = originalCameraRotation.y + scrollAmount * 0.0002;
+    camera.zoom = originalZoom - scrollAmount * 0.0002;
+    camera.updateProjectionMatrix();
+}
+
+document.body.onscroll = handleScroll;
+handleScroll();
 
 window.addEventListener('resize', () => {
     camera.aspect = window.innerWidth / window.innerHeight;
@@ -51,6 +64,8 @@ window.addEventListener('resize', () => {
 function animate() {
     requestAnimationFrame(animate);
     const delta = clock.getDelta();
+    if(window.scrollY == 0) player.rotation.y = 0;
+    if(window.scrollY > 0) player.rotateY(.002);
     stars.update(delta);
     renderer.render(scene, camera);
 }

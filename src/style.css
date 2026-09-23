@@ -20,7 +20,7 @@ main {
   display: grid;
   grid-template-columns: repeat(12, minmax(0, 1fr));
   gap: 2rem;
-  width: min(1180px, calc(100% - 3rem));
+  width: calc(100% - 3rem);
   margin: 0 auto;
   padding: 3rem 0 6rem;
   position: relative;
@@ -48,12 +48,19 @@ main > * {
   grid-column: 1 / -1;
   align-content: end;
   min-height: 55vh;
+  transition: background 200ms ease, border-color 200ms ease, backdrop-filter 200ms ease;
+}
+
+.hero-hidden {
+  border-color: transparent;
+  background: transparent;
+  backdrop-filter: none;
 }
 
 .hero h1 {
   max-width: 11ch;
   margin: 0;
-  font-size: clamp(3rem, 8vw, 7rem);
+  font-size: clamp(1.5rem, 4vw, 5rem);
   line-height: 0.9;
 }
 
