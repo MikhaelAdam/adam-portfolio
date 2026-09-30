@@ -44,7 +44,6 @@ const clock = new THREE.Timer();
 
 function handleScroll() {
     const scrollAmount = window.scrollY;
-    document.querySelector('.hero').classList.toggle('hero-hidden', scrollAmount < heroVisibilityThreshold);
     // camera.position.x = originalCameraPosition.x + scrollAmount * 0.0002;
     // camera.position.z = originalCameraPosition.z + scrollAmount * 0.01;
     // camera.rotation.y = originalCameraRotation.y + scrollAmount * 0.0002;
@@ -64,8 +63,7 @@ window.addEventListener('resize', () => {
 function animate() {
     requestAnimationFrame(animate);
     const delta = clock.getDelta();
-    if(window.scrollY == 0) player.rotation.y = 0;
-    if(window.scrollY > 0) player.rotateY(.002);
+    player.rotateY(.002);
     stars.update(delta);
     renderer.render(scene, camera);
 }

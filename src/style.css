@@ -38,9 +38,7 @@ main > * {
 .projects,
 .contact-me {
   padding: clamp(1.5rem, 4vw, 3rem);
-  border: 1px solid rgb(244 241 234 / 25%);
-  background: rgb(37 37 37 / 78%);
-  backdrop-filter: blur(8px);
+
 }
 
 .hero {
@@ -49,12 +47,6 @@ main > * {
   align-content: end;
   min-height: 55vh;
   transition: background 200ms ease, border-color 200ms ease, backdrop-filter 200ms ease;
-}
-
-.hero-hidden {
-  border-color: transparent;
-  background: transparent;
-  backdrop-filter: none;
 }
 
 .hero h1 {
@@ -73,6 +65,7 @@ main > * {
 
 .about-me {
   grid-column: span 5;
+  margin-bottom: 2.5rem;
 }
 
 .projects {
